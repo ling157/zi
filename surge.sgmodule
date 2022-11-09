@@ -18,4 +18,4 @@ http-response ^https?://api\.m\.jd\.com/(client\.action|api)\?functionId=(wareBu
 
 
 [MITM]
-hostname = api.m.jd.com, %APPEND% sub.store
+hostname = %APPEND% sub.store,api.m.jd.com
