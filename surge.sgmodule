@@ -1,17 +1,20 @@
 #!name=Surge
-#!desc=京东比价+返利/Boxjs
+#!desc=京东比价+返利/Boxjs+托管订阅更新+高级订阅管理工具
 #!system=ios
 
 [General]
-force-http-engine-hosts = %APPEND% boxjs.com, boxjs.net
+force-http-engine-hosts = %APPEND% boxjs.com, boxjs.ne
 
 [Script]
-
+#托管订阅更新
+Sub-Store Sync = type=cron,cronexp=0 00/6 * * *,script-path=https://raw.githubusercontent.com/Peng-YM/Sub-Store/master/backend/dist/cron-sync-artifacts.min.js,script-update-interval=0,wake-system=1
+#订阅管理
+Sub-Store Core=type=http-request,pattern=^https?:\/\/sub\.store\/((download)|api\/(preview|sync|(utils\/node-info))),script-path=https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-1.min.js,requires-body=true,timeout=120,ability=http-client-policy
 # Boxjs
 Rewrite: BoxJs = type=http-request,pattern=https?:\/\/boxjs\.(com|net),script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/box/chavy.boxjs.js, requires-body=true, timeout=120
-
 # 京东比价 Lite(通知版)
 http-response ^https?://api\.m\.jd\.com/(client\.action|api)\?functionId=(wareBusiness|serverConfig|basicConfig|lite_wareBusiness|pingou_item) requires-body=true, script-path=https://raw.githubusercontent.com/Tartarus2014/Script/master/jd_price_lite.js, tag=京东比价 Lite(通知版)
 
+
 [MITM]
-hostname = api.m.jd.com
+hostname = api.m.jd.com, %APPEND% sub.store
