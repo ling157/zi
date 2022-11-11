@@ -13,7 +13,7 @@ Sub-Store Sync = type=cron,cronexp=0 00/6 * * *,script-path=https://raw.githubus
 Rewrite: BoxJs = type=http-request,pattern=https?:\/\/boxjs\.(com|net),script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/box/chavy.boxjs.js, requires-body=true, timeout=120
 
 # 京东比价 Lite(通知版)
-http-response ^https?://api\.m\.jd\.com/client\.action\?functionId=(wareBusiness|serverConfig|basicConfig) requires-body=1,script-path=https://raw.githubusercontent.com/Tartarus2014/Script/master/jd_price.js, tag=京东比价
+http-response ^https?://api\.m\.jd\.com/(client\.action|api)\?functionId=(wareBusiness|serverConfig|basicConfig|lite_wareBusiness|pingou_item) requires-body=true, script-path=https://raw.githubusercontent.com/Tartarus2014/Script/master/jd_price_lite.js, tag=京东比价 Lite(通知版)
 
 [MITM]
 hostname = %APPEND% sub.store, api.m.jd.com
